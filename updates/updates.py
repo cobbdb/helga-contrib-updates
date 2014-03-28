@@ -48,12 +48,12 @@ def updates(client, channel, nick, message, cmd, args):
             report(db.standup.find({
                 'who': args[0],
                 'where': channel
-            ))
+            }))
     except IndexError:
         # List all updates in the current channel.
         report(db.standup.find({
             'where': channel
-        ))
+        }))
     return None
 
 @match(r'^(?i)update:')
