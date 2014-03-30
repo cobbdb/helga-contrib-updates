@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "helga-contrib-updates",
-    version = "0.0.1",
+    version = "0.0.2",
     packages = find_packages(),
     author = "Dan Cobb",
     author_email = "cobbdb@gmail.com",
@@ -13,7 +13,7 @@ setup(
     keywords = "helga, plugin, irc, bot",
     entry_points = {
         'helga_plugins': [
-            'updates = updates.updates:updates',
+            'updates = helga_updates:updates',
         ],
     },
     classifiers = [
