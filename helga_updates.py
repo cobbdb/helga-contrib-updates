@@ -14,9 +14,15 @@ def _updates_command(client, channel, nick, message, cmd, args):
     except IndexError:
         who = None
 
+    # MongoDB can't handle date types, only datetime
+    today = datetime.utcnow().date()
+
     search = {
         'where': channel,
-        'when': datetime.utcnow().date(),
+        'when': {
+            '$gte': datetime(today.year, today.month, today.day, 0, 0, 0),
+            '$lte': datetime(today.year, today.month, today.day, 23, 59, 59),
+        }
     }
 
     if who:
@@ -26,18 +32,17 @@ def _updates_command(client, channel, nick, message, cmd, args):
 
     client.me(channel, 'whispers to {0}'.format(nick))
     for update in updates:
-        client.msg(nick, '({who}) {what}'.format(**update))
+        client.msg(nick, '({who}) {what}'.format(who=update['who'],
+                                                 what=update['what']))
 
 
 def _updates_match(client, channel, nick, message, matches):
     logger.info('Adding a new standup update for {0}.'.format(nick))
-    now = datetime.utcnow()
 
     db.updates.insert({
         'who': nick,
         'what': message,
-        'when': now.date(),
-        'when_exact': now,
+        'when': datetime.utcnow(),
         'where': channel,
     })
 
