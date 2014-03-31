@@ -20,15 +20,7 @@ def init_standup():
         clear_all()
 
 
-@command(
-    'updates',
-    aliases=['standup'],
-    help='List updates from today. Usage: (!|helga) '
-         '(updates|standup) [all|<nick>]. '
-         '[all] will list all updates from everyone in all channels.'
-         '[<nick>] will list updates from a single person in the current channel.'
-         'Ex) !updates sduncan'
-)
+@command('updates', help='List updates from today. Usage: helga updates [<nick>]')
 def updates(client, channel, nick, message, cmd, args):
     def report(updates):
         client.me(channel, 'whispers to ' + nick)
