@@ -8,8 +8,7 @@ from helga.plugins import command, match
 logger = log.getLogger(__name__)
 
 
-@command('updates', help='List updates from today. Usage: helga updates [<nick>]')
-def updates(client, channel, nick, message, cmd, args):
+def _updates_command(client, channel, nick, message, cmd, args):
     try:
         who = args[0]
     except IndexError:
@@ -26,13 +25,20 @@ def updates(client, channel, nick, message, cmd, args):
         client.msg(nick, '({who}) {what}'.format(**update))
 
 
-@match(r'^(?i)update:')
-def update(client, channel, nick, message, matches):
-    logger.info('Adding a new standup update for %s.' % nick)
+def _updates_match(client, channel, nick, message, matches):
+    logger.info('Adding a new standup update for {0}.'.format(nick))
     db.standup.insert({
         'who': nick,
         'what': message,
         'when': datetime.now().strftime('%H:%M'),
         'where': channel
     })
-    return None
+
+
+@match(r'^(?i)update')
+@command('updates', help='List updates from today. Usage: helga updates [<nick>]')
+def updates(client, channel, nick, message, *args):
+    if len(args) == 1:
+        return _updates_match(client, channel, nick, message, args[0])
+    else:
+        return _updates_command(client, channel, nick, message, args[0], args[1])
