@@ -1,26 +1,11 @@
 from datetime import datetime
 
-import smokesignal
-
 from helga import log
 from helga.db import db
 from helga.plugins import command, match
 
 
 logger = log.getLogger(__name__)
-
-
-def clear_all():
-    logger.info('Clearing all standup updates.')
-    db.standup.drop()
-
-
-# I doubt this will work, so I need some help on what to do
-@smokesignal.on('signon')
-def init_standup():
-    # Clear all updates every midnight.
-    if datetime.now().hour == 0:
-        clear_all()
 
 
 @command('updates', help='List updates from today. Usage: helga updates [<nick>]')
