@@ -27,7 +27,7 @@ def _updates_command(client, channel, nick, message, cmd, args):
 
 def _updates_match(client, channel, nick, message, matches):
     logger.info('Adding a new standup update for {0}.'.format(nick))
-    db.standup.insert({
+    db.updates.insert({
         'who': nick,
         'what': message,
         'when': datetime.now().strftime('%H:%M'),
