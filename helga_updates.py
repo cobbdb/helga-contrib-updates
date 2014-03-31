@@ -31,6 +31,8 @@ def _updates_command(client, channel, nick, message, cmd, args):
     updates = db.updates.find(search)
 
     client.me(channel, 'whispers to {0}'.format(nick))
+    client.msg(nick, 'Updates for {when}'.format(when=today))
+
     for update in updates:
         client.msg(nick, '({who}) {what}'.format(who=update['who'],
                                                  what=update['what']))
