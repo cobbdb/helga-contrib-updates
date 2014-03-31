@@ -30,12 +30,7 @@ def updates(client, channel, nick, message, cmd, args):
                 update['what']
             ))
     try:
-        if args[0] is 'clear':
-            # Clear all updates - drops the entire collection.
-            # Note this is unlisted in the help description - use wisely.
-            clear_all()
-            client.msg(channel, random_ack())
-        elif args[0] is 'all':
+        if args[0] is 'all':
             # List all updates from everyone in all channels.
             report(db.standup.find())
         else:
