@@ -14,7 +14,11 @@ def _updates_command(client, channel, nick, message, cmd, args):
     except IndexError:
         who = None
 
-    search = {'where': channel}
+    search = {
+        'where': channel,
+        'when': datetime.utcnow().date(),
+    }
+
     if who:
         search['who'] = who
 
@@ -27,11 +31,14 @@ def _updates_command(client, channel, nick, message, cmd, args):
 
 def _updates_match(client, channel, nick, message, matches):
     logger.info('Adding a new standup update for {0}.'.format(nick))
+    now = datetime.utcnow()
+
     db.updates.insert({
         'who': nick,
         'what': message,
-        'when': datetime.now().strftime('%H:%M'),
-        'where': channel
+        'when': now.date(),
+        'when_exact': now,
+        'where': channel,
     })
 
 
