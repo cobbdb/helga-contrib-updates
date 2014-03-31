@@ -1,8 +1,11 @@
-from helga.plugins import command, match, random_ack
-from helga.db import db
-from helga import log
 from datetime import datetime
+
 import smokesignal
+
+from helga import log
+from helga.db import db
+from helga.plugins import command, match
+
 
 logger = log.getLogger(__name__)
 
@@ -22,29 +25,20 @@ def init_standup():
 
 @command('updates', help='List updates from today. Usage: helga updates [<nick>]')
 def updates(client, channel, nick, message, cmd, args):
-    def report(updates):
-        client.me(channel, 'whispers to ' + nick)
-        for update in updates:
-            client.msg(nick, '(%s) %s' % (
-                update['who'],
-                update['what']
-            ))
     try:
-        if args[0] is 'all':
-            # List all updates from everyone in all channels.
-            report(db.standup.find())
-        else:
-            # List updates from a single person in the current channel.
-            report(db.standup.find({
-                'who': args[0],
-                'where': channel
-            }))
+        who = args[0]
     except IndexError:
-        # List all updates in the current channel.
-        report(db.standup.find({
-            'where': channel
-        }))
-    return None
+        who = None
+
+    search = {'where': channel}
+    if who:
+        search['who'] = who
+
+    updates = db.updates.find(search)
+
+    client.me(channel, 'whispers to {0}'.format(nick))
+    for update in updates:
+        client.msg(nick, '({who}) {what}'.format(**update))
 
 
 @match(r'^(?i)update:')
