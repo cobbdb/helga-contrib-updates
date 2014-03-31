@@ -6,25 +6,28 @@ import smokesignal
 
 logger = log.getLogger(__name__)
 
-def clearAll():
+
+def clear_all():
     logger.info('Clearing all standup updates.')
     db.standup.drop()
+
 
 # I doubt this will work, so I need some help on what to do
 @smokesignal.on('signon')
 def init_standup():
     # Clear all updates every midnight.
     if datetime.now().hour == 0:
-        clearAll()
+        clear_all()
+
 
 @command(
     'updates',
-    aliases = ['standup'],
-    help = 'List updates from today. Usage: (!|helga) '
-        '(updates|standup) [all|<nick>]. '
-        '[all] will list all updates from everyone in all channels.'
-        '[<nick>] will list updates from a single person in the current channel.'
-        'Ex) !updates sduncan'
+    aliases=['standup'],
+    help='List updates from today. Usage: (!|helga) '
+         '(updates|standup) [all|<nick>]. '
+         '[all] will list all updates from everyone in all channels.'
+         '[<nick>] will list updates from a single person in the current channel.'
+         'Ex) !updates sduncan'
 )
 def updates(client, channel, nick, message, cmd, args):
     def report(updates):
@@ -38,7 +41,7 @@ def updates(client, channel, nick, message, cmd, args):
         if args[0] is 'clear':
             # Clear all updates - drops the entire collection.
             # Note this is unlisted in the help description - use wisely.
-            clearAll()
+            clear_all()
             client.msg(channel, random_ack())
         elif args[0] is 'all':
             # List all updates from everyone in all channels.
@@ -55,6 +58,7 @@ def updates(client, channel, nick, message, cmd, args):
             'where': channel
         }))
     return None
+
 
 @match(r'^(?i)update:')
 def update(client, channel, nick, message, matches):
