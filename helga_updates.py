@@ -1,3 +1,5 @@
+import re
+
 from datetime import datetime
 
 from helga import log
@@ -9,29 +11,39 @@ logger = log.getLogger(__name__)
 
 
 def _updates_command(client, channel, nick, message, cmd, args):
-    try:
-        who = args[0]
-    except IndexError:
-        who = None
+    who = None
+    when = datetime.utcnow().date()
 
-    # MongoDB can't handle date types, only datetime
-    today = datetime.utcnow().date()
+    # We can search by date
+    if len(args) == 2:
+        who = args[0]
+        when = datetime.strptime(args[1], '%Y-%m-%d').date()
+    else:
+        try:
+            who = args[0]
+        except IndexError:
+            pass
+        else:
+            if re.match(r'[\d]{4}-[\d]{2}-[\d]{2}', who):
+                when, who = who, None
 
     search = {
         'where': channel,
         'when': {
-            '$gte': datetime(today.year, today.month, today.day, 0, 0, 0),
-            '$lte': datetime(today.year, today.month, today.day, 23, 59, 59),
+            '$gte': datetime(when.year, when.month, when.day, 0, 0, 0),
+            '$lte': datetime(when.year, when.month, when.day, 23, 59, 59),
         }
     }
 
+    client.me(channel, 'whispers to {0}'.format(nick))
+
     if who:
+        client.msg(nick, 'Updates by {who} for {when}'.format(who=who, when=when))
         search['who'] = who
+    else:
+        client.msg(nick, 'Updates for {when}'.format(when=when))
 
     updates = db.updates.find(search)
-
-    client.me(channel, 'whispers to {0}'.format(nick))
-    client.msg(nick, 'Updates for {when}'.format(when=today))
 
     for update in updates:
         client.msg(nick, '({who}) {what}'.format(who=update['who'],
