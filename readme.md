@@ -1,4 +1,4 @@
-# helga-contrib-updates
+# helga-contrib-updates [![PyPI version](https://badge.fury.io/py/helga-contrib-updates.svg)](http://badge.fury.io/py/helga-contrib-updates)
 
 A helga plugin to list and record IRC channel updates.
 
