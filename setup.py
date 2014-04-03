@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="helga-contrib-updates",
-    version="1.0.1",
+    version="1.0.3",
     packages=find_packages(),
     py_modules=['helga_contrib_updates'],
     author="Dan Cobb, Shaun Duncan",
