@@ -37,3 +37,7 @@ Lists updates from specific date of the current channel.
 
 #### !updates (&lt;nick&gt;|#&lt;channel&gt;) YYYY-MM-DD
 Search for updates from a specific date for a single person or channel.
+
+---------
+
+License: MIT
