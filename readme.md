@@ -2,6 +2,10 @@
 
 A helga plugin to list and record IRC channel updates.
 
+    $ pip install helga-contrib-updates
+
+Syntax:
+
     helga updates [<nick>|<channel>|YYYY-MM-DD]
 
 
