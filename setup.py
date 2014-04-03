@@ -13,7 +13,7 @@ setup(
     keywords="helga plugin irc standup",
     entry_points={
         'helga_plugins': [
-            'updates = helga_updates:updates',
+            'updates = helga_contrib_updates:updates',
         ],
     },
     classifiers=[
