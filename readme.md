@@ -23,10 +23,10 @@ All update timestamps are stored in UTC.
 #### !updates
 Lists updates from everyone in the current channel.
 
-#### !updates <channel>
+#### !updates &lt;channel&gt;
 Lists updates from everyone in a specific channel.
 
-#### !updates <nick>
+#### !updates &lt;nick&gt;
 Lists updates from a single person in the current channel.
 
 #### !updates YYYY-MM-DD
