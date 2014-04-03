@@ -1,6 +1,6 @@
 # helga-contrib-updates
 
-A helga plugin to list IRC channel updates.
+A helga plugin to list and record IRC channel updates.
 
     helga updates [<nick>|<channel>|YYYY-MM-DD]
 
