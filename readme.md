@@ -6,7 +6,7 @@ A helga plugin to list and record IRC channel updates.
 
 Syntax:
 
-    helga updates [<nick>|<channel>] [YYYY-MM-DD]
+    helga updates [<nick>|#<channel>] [YYYY-MM-DD]
 
 
 ## Creating a new update
@@ -26,7 +26,7 @@ All update timestamps are stored in UTC.
 #### !updates
 Lists updates from everyone in the current channel.
 
-#### !updates &lt;channel&gt;
+#### !updates #&lt;channel&gt;
 Lists updates from everyone in a specific channel.
 
 #### !updates &lt;nick&gt;
@@ -35,5 +35,5 @@ Lists updates from a single person in the current channel.
 #### !updates YYYY-MM-DD
 Lists updates from specific date of the current channel.
 
-#### !updates (&lt;nick&gt;|&lt;channel&gt;) YYYY-MM-DD
+#### !updates (&lt;nick&gt;|#&lt;channel&gt;) YYYY-MM-DD
 Search for updates from a specific date for a single person or channel.
