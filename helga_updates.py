@@ -68,7 +68,7 @@ def _updates_match(client, channel, nick, message, matches):
     })
 
 
-@match(r'^(?i)update')
+@match(r'^(?i)update[^\w]')
 @command('updates', help=('List standup updates. Usage: helga updates '
                           '[<nick>|<channel>] [YYYY-MM-DD]'))
 def updates(client, channel, nick, message, *args):

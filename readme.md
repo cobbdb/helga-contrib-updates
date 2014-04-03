@@ -3,26 +3,31 @@ helga-contrib-updates
 
 A helga plugin to list IRC channel updates.
 
-    (!|helga) (updates|standup) [all|clear|<nick>]
+    helga updates [<nick>|<channel>] [YYYY-MM-DD]
+
 
 ## Creating a new update
-New updates are created by adding ```Update:``` to the beginning of a message. ```Update:``` is case-insensitive and the colon is required.
+
+New updates are created by adding ```Update:``` to the beginning of a message.
+```Update:``` is case-insensitive.
 
     Update: This is important information.
 
+
 ## Listing past updates
-The plugin will send you a private message with the list of updates for today. This list of updates is cleared at midnight daily.
+
+The plugin will send you a private message with the list of updates for today.
+Optionally, you can ask for a specific date (see above) using a format YYYY-MM-DD.
+All update timestamps are stored in UTC.
 
 #### !updates
-Lists all updates from the current channel.
+Lists updates from everyone in the current channel.
 
-#### !updates all
-Lists all updates from everyone in all channels.
+#### !updates <channel>
+Lists updates from everyone in a specific channel.
 
-#### !updates &lt;nick&gt;
+#### !updates <nick>
 Lists updates from a single person in the current channel.
 
-## Utility
-
-#### !updates clear
-Clears all updates from all channels.
+#### !updates YYYY-MM-DD
+Lists updates from specific date of the current channel.
