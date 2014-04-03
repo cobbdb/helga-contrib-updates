@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="helga-contrib-updates",
-    version="0.0.2",
+    version="0.1.0",
     packages=find_packages(),
     author="Dan Cobb",
     author_email="cobbdb@gmail.com",

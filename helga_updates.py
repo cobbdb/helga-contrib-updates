@@ -26,9 +26,16 @@ def _updates_command(client, channel, nick, message, cmd, args):
         else:
             if re.match(r'[\d]{4}-[\d]{2}-[\d]{2}', who):
                 when, who = who, None
+                when = datetime.strptime(when, '%Y-%m-%d').date()
+
+    # Handle if the 'who' is actually a channel
+    if who and who.startswith('#'):
+        who, where = None, who
+    else:
+        where = channel
 
     search = {
-        'where': channel,
+        'where': where,
         'when': {
             '$gte': datetime(when.year, when.month, when.day, 0, 0, 0),
             '$lte': datetime(when.year, when.month, when.day, 23, 59, 59),
@@ -62,7 +69,8 @@ def _updates_match(client, channel, nick, message, matches):
 
 
 @match(r'^(?i)update')
-@command('updates', help='List updates from today. Usage: helga updates [<nick>]')
+@command('updates', help=('List standup updates. Usage: helga updates '
+                          '[<nick>|<channel>] [YYYY-MM-DD]'))
 def updates(client, channel, nick, message, *args):
     if len(args) == 1:
         return _updates_match(client, channel, nick, message, args[0])
