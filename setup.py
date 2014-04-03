@@ -1,22 +1,22 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = "helga-contrib-updates",
-    version = "0.0.2",
-    packages = find_packages(),
-    author = "Dan Cobb",
-    author_email = "cobbdb@gmail.com",
-    description = "A helga plugin to list IRC channel updates.",
-    license = 'MIT',
-    url = "https://github.com/cobbdb/helga-contrib-updates",
-    zip_safe = False,
-    keywords = "helga, plugin, irc, bot",
-    entry_points = {
+    name="helga-contrib-updates",
+    version="0.0.2",
+    packages=find_packages(),
+    author="Dan Cobb",
+    author_email="cobbdb@gmail.com",
+    description="A helga plugin to list IRC channel updates.",
+    license='MIT',
+    url="https://github.com/cobbdb/helga-contrib-updates",
+    zip_safe=False,
+    keywords="helga plugin irc standup",
+    entry_points={
         'helga_plugins': [
             'updates = helga_updates:updates',
         ],
     },
-    classifiers = [
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
