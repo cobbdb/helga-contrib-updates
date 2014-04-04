@@ -4,7 +4,7 @@ from datetime import datetime
 
 from helga import log
 from helga.db import db
-from helga.plugins import command, match
+from helga.plugins import command, match, PRIORITY_HIGH
 
 
 logger = log.getLogger(__name__)
@@ -68,7 +68,7 @@ def _updates_match(client, channel, nick, message, matches):
     })
 
 
-@match(r'^(?i)update[^\w]', priority=90)
+@match(r'^(?i)update[^\w]', priority=PRIORITY_HIGH)
 @command('updates', help=('List standup updates. Usage: helga updates '
                           '[<nick>|<channel>] [YYYY-MM-DD]'))
 def updates(client, channel, nick, message, *args):
